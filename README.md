@@ -5,7 +5,7 @@ de Manutenção e Evolução de Software. O objetivo é demonstrar como o comand
 
 ---
 
-## 1. Simulação de I/O Bound (Leitura de Disco)
+## 1. Simulação de I/O Bound 
 O script leitura.py simula um programa que varre o disco lendo metadados de arquivos. É um processo rápido, mas que gera interrupções de hardware (Page Faults) para acessar informações do disco.
 
 **Comando executado:**
@@ -35,7 +35,7 @@ Arquivos lidos: 2770 | Erros de permissão: 0
        0,019014000 seconds sys
 ```
 
-## Passo 2: Simulação de Espera / Rede (Idle)
+## Passo 2: Simulação de Espera 
 O script espera.py simula uma aplicação web ou API que faz uma requisição externa e fica aguardando a resposta, sem exigir esforço do processador.
 
 **Comando executado:**
@@ -66,7 +66,7 @@ Tempo: 3.00 segundos.
        0,012883000 seconds sys
 ```
 
-## Passo 3: Simulação de CPU Bound (Processamento Intensivo)
+## Passo 3: Simulação de CPU Bound 
 O script processamento.py possui um laço de repetição que exige 100% de capacidade de processamento de um núcleo. Utilizamos a flag -d para ler métricas adicionais direto dos contadores do hardware (como cache L1).
 
 **Comando executado:**
