@@ -1,8 +1,7 @@
 import time
 
 carga = 100000000
-print(f"[*] Iniciando cálculo com {carga:,} operações...")
-print("[*] O processador será levado ao limite neste núcleo.")
+print(f"Iniciando cálculo com {carga:,} operações...")
 
 inicio = time.time()
 
@@ -13,4 +12,4 @@ for i in range(carga):
     
 fim = time.time()
 
-print(f"[*] Processamento concluído! Tempo decorrido: {fim - inicio:.2f} segundos.")
+print(f"Tempo: {fim - inicio:.2f} segundos.")

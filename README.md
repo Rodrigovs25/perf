@@ -14,25 +14,25 @@ sudo perf stat python3 leitura.py
 ```
 
 ```text
-[*] Iniciando varredura de I/O no diretório: /etc
-[*] Varredura concluída! Arquivos lidos: 2770 | Erros de permissão: 0
+Iniciando varredura de I/O no diretório: /etc
+Arquivos lidos: 2770 | Erros de permissão: 0
 
  Performance counter stats for 'python3 leitura.py':
 
-                 0      context-switches                 #      0,0 cs/sec  cs_per_second     
+                 6      context-switches                 #    180,0 cs/sec  cs_per_second     
                  0      cpu-migrations                   #      0,0 migrations/sec  migrations_per_second
-             1.128      page-faults                      #  34182,6 faults/sec  page_faults_per_second
-             33,00 msec task-clock                       #      0,8 CPUs  CPUs_utilized       
-         1.596.707      branch-misses                    #      4,6 %  branch_miss_rate         (47,64%)
-        34.446.796      branches                         #   1043,9 M/sec  branch_frequency     (50,74%)
-       141.795.943      cpu-cycles                       #      4,3 GHz  cycles_frequency       (68,90%)
-       167.902.268      instructions                     #      1,2 instructions  insn_per_cycle  (52,36%)
-        41.793.585      stalled-cycles-frontend          #     0,29 frontend_cycles_idle        (49,26%)
+             1.127      page-faults                      #  33819,2 faults/sec  page_faults_per_second
+             33,32 msec task-clock                       #      0,7 CPUs  CPUs_utilized       
+         1.599.339      branch-misses                    #      4,6 %  branch_miss_rate         (46,54%)
+        33.729.700      branches                         #   1012,2 M/sec  branch_frequency     (49,72%)
+       138.557.426      cpu-cycles                       #      4,2 GHz  cycles_frequency       (67,57%)
+       167.274.210      instructions                     #      1,2 instructions  insn_per_cycle  (53,46%)
+        41.325.657      stalled-cycles-frontend          #     0,30 frontend_cycles_idle        (50,28%)
 
-       0,034800860 seconds time elapsed
+       0,036165500 seconds time elapsed
 
-       0,012951000 seconds user
-       0,021918000 seconds sys
+       0,017013000 seconds user
+       0,019014000 seconds sys
 ```
 
 ## Passo 2: Simulação de Espera / Rede (Idle)
@@ -44,26 +44,26 @@ sudo perf stat python3 espera.py
 ```
 
 ```text
-[*] Simulação de espera de 3s (Ex: Aguardando Banco de Dados)...
-[*] A CPU ficará livre neste período.
-[*] Espera concluída! Tempo real decorrido no relógio: 3.00 segundos.
+Simulação de espera de 3s 
+A CPU ficará livre neste período.
+Tempo: 3.00 segundos.
 
  Performance counter stats for 'python3 espera.py':
 
-                 1      context-switches                 #     45,7 cs/sec  cs_per_second     
+                 5      context-switches                 #    240,3 cs/sec  cs_per_second     
                  0      cpu-migrations                   #      0,0 migrations/sec  migrations_per_second
-             1.115      page-faults                      #  51010,8 faults/sec  page_faults_per_second
-             21,86 msec task-clock                       #      0,0 CPUs  CPUs_utilized       
-           690.427      branch-misses                    #      4,8 %  branch_miss_rate         (46,54%)
-        16.142.305      branches                         #    738,5 M/sec  branch_frequency     (47,24%)
-        74.095.311      cpu-cycles                       #      3,4 GHz  cycles_frequency       (64,10%)
-        73.742.748      instructions                     #      1,0 instructions  insn_per_cycle  (53,46%)
-        20.502.069      stalled-cycles-frontend          #     0,31 frontend_cycles_idle        (52,76%)
+             1.116      page-faults                      #  53644,5 faults/sec  page_faults_per_second
+             20,80 msec task-clock                       #      0,0 CPUs  CPUs_utilized       
+           762.774      branch-misses                    #      4,6 %  branch_miss_rate         (45,83%)
+        15.247.882      branches                         #    732,9 M/sec  branch_frequency     (53,12%)
+        62.937.777      cpu-cycles                       #      3,0 GHz  cycles_frequency       (71,22%)
+        65.057.753      instructions                     #      1,0 instructions  insn_per_cycle  (54,17%)
+        20.491.575      stalled-cycles-frontend          #     0,31 frontend_cycles_idle        (46,88%)
 
-       3,025103151 seconds time elapsed
+       3,024258810 seconds time elapsed
 
-       0,017901000 seconds user
-       0,006961000 seconds sys
+       0,010901000 seconds user
+       0,012883000 seconds sys
 ```
 
 ## Passo 3: Simulação de CPU Bound (Processamento Intensivo)
@@ -75,25 +75,24 @@ sudo perf stat -d python3 processamento.py
 ```
 
 ```text
-[*] Iniciando cálculo matemático com 100,000,000 operações...
-[*] O processador será levado ao limite neste núcleo.
-[*] Processamento concluído! Tempo decorrido: 13.01 segundos.
+Iniciando cálculo com 100,000,000 operações...
+Tempo: 11.87 segundos.
 
  Performance counter stats for 'python3 processamento.py':
 
-               137      context-switches                 #     10,5 cs/sec  cs_per_second     
-                 7      cpu-migrations                   #      0,5 migrations/sec  migrations_per_second
-             1.118      page-faults                      #     85,9 faults/sec  page_faults_per_second
-         13.012,13 msec task-clock                       #      1,0 CPUs  CPUs_utilized       
-         5.558.795      L1-dcache-load-misses            #      0,0 %  l1d_miss_rate            (42,85%)
-         5.110.916      branch-misses                    #      0,0 %  branch_miss_rate         (42,85%)
-    35.460.874.639      branches                         #   2725,2 M/sec  branch_frequency     (42,86%)
-    52.213.101.604      cpu-cycles                       #      4,0 GHz  cycles_frequency       (42,87%)
-   185.888.937.081      instructions                     #      3,6 instructions  insn_per_cycle  (42,87%)
-     4.079.996.758      stalled-cycles-frontend          #     0,08 frontend_cycles_idle        (42,86%)
+               159      context-switches                 #     13,4 cs/sec  cs_per_second     
+                 5      cpu-migrations                   #      0,4 migrations/sec  migrations_per_second
+             1.118      page-faults                      #     94,1 faults/sec  page_faults_per_second
+         11.877,81 msec task-clock                       #      1,0 CPUs  CPUs_utilized       
+         6.025.767      L1-dcache-load-misses            #      0,0 %  l1d_miss_rate            (42,85%)
+         4.583.500      branch-misses                    #      0,0 %  branch_miss_rate         (42,85%)
+    32.961.874.607      branches                         #   2775,1 M/sec  branch_frequency     (42,85%)
+    50.639.502.020      cpu-cycles                       #      4,3 GHz  cycles_frequency       (42,87%)
+   176.414.125.819      instructions                     #      3,5 instructions  insn_per_cycle  (42,86%)
+     4.106.774.673      stalled-cycles-frontend          #     0,08 frontend_cycles_idle        (42,87%)
 
-      13,025719469 seconds time elapsed
+      11,886748174 seconds time elapsed
 
-      13,007384000 seconds user
-       0,006993000 seconds sys
+      11,876041000 seconds user
+       0,003997000 seconds sys
 ```
