@@ -1,12 +1,12 @@
-# Análise de Desempenho com `perf stat`
+# Análise de Desempenho com perf stat
 
-Este repositório contém scripts de demonstração para ilustrar o uso da ferramenta de `perf` para a disciplina
-de Manutenção e Evolução de Software. O objetivo é demonstrar como o comando `perf stat` se comporta ao analisar diferentes perfis de carga de trabalho: **I/O Bound**, **Espera (Idle)** e **CPU Bound**.
+Este repositório contém scripts de demonstração para ilustrar o uso da ferramenta de perf para a disciplina
+de Manutenção e Evolução de Software. O objetivo é demonstrar como o comando perf stat se comporta ao analisar diferentes perfis de carga de trabalho: **I/O Bound**, **Espera (Idle)** e **CPU Bound**.
 
 ---
 
 ## 1. Simulação de I/O Bound (Leitura de Disco)
-O script `leitura.py` simula um programa que varre o disco lendo metadados de arquivos. É um processo rápido, mas que gera interrupções de hardware (Page Faults) para acessar informações do disco.
+O script leitura.py simula um programa que varre o disco lendo metadados de arquivos. É um processo rápido, mas que gera interrupções de hardware (Page Faults) para acessar informações do disco.
 
 **Comando executado:**
 ```bash
@@ -36,7 +36,7 @@ sudo perf stat python3 leitura.py --path /etc
 ```
 
 ## Passo 2: Simulação de Espera / Rede (Idle)
-Simula uma aplicação web ou API que faz uma requisição externa e fica aguardando a resposta, sem exigir esforço do processador.
+O script espera.py simula uma aplicação web ou API que faz uma requisição externa e fica aguardando a resposta, sem exigir esforço do processador.
 
 **Comando executado:**
 ```bash
@@ -67,7 +67,7 @@ sudo perf stat python3 espera.py --tempo 3
 ```
 
 ## Passo 3: Simulação de CPU Bound (Processamento Intensivo)
-Possui um laço de repetição que exige 100% de capacidade de processamento de um núcleo. Utilizamos a flag `-d` (detailed) para ler métricas adicionais direto dos contadores do hardware (como cache L1).
+O script processamento.py possui um laço de repetição que exige 100% de capacidade de processamento de um núcleo. Utilizamos a flag -d(detailed) para ler métricas adicionais direto dos contadores do hardware (como cache L1).
 
 **Comando executado:**
 ```bash
