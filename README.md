@@ -10,29 +10,29 @@ O script leitura.py simula um programa que varre o disco lendo metadados de arqu
 
 **Comando executado:**
 ```bash
-sudo perf stat python3 leitura.py --path /etc
+sudo perf stat python3 leitura.py 
 ```
 
 ```text
 [*] Iniciando varredura de I/O no diretório: /etc
 [*] Varredura concluída! Arquivos lidos: 2770 | Erros de permissão: 0
 
- Performance counter stats for 'python3 leitura.py --path /etc':
+ Performance counter stats for 'python3 leitura.py':
 
-                 2      context-switches                 #      15,6 cs/sec  cs_per_second      
-                 0      cpu-migrations                   #       0,0 migrations/sec  migrations_per_second
-             1.487      page-faults                      #  11568,9 faults/sec  page_faults_per_second
-            128,53 msec task-clock                       #       0,9 CPUs  CPUs_utilized        
-         2.026.592      branch-misses                    #       4,7 %  branch_miss_rate         (49,73%)
-        42.679.431      branches                         #   332,0 M/sec  branch_frequency      (50,55%)
-       175.897.699      cpu-cycles                       #       1,4 GHz  cycles_frequency       (67,42%)
-       203.930.234      instructions                     #       1,2 instructions  insn_per_cycle  (50,27%)
-        54.107.267      stalled-cycles-frontend          #      0,31 frontend_cycles_idle        (49,45%)
+                 0      context-switches                 #      0,0 cs/sec  cs_per_second     
+                 0      cpu-migrations                   #      0,0 migrations/sec  migrations_per_second
+             1.128      page-faults                      #  34182,6 faults/sec  page_faults_per_second
+             33,00 msec task-clock                       #      0,8 CPUs  CPUs_utilized       
+         1.596.707      branch-misses                    #      4,6 %  branch_miss_rate         (47,64%)
+        34.446.796      branches                         #   1043,9 M/sec  branch_frequency     (50,74%)
+       141.795.943      cpu-cycles                       #      4,3 GHz  cycles_frequency       (68,90%)
+       167.902.268      instructions                     #      1,2 instructions  insn_per_cycle  (52,36%)
+        41.793.585      stalled-cycles-frontend          #     0,29 frontend_cycles_idle        (49,26%)
 
-       0,133541088 seconds time elapsed
+       0,034800860 seconds time elapsed
 
-       0,080744000 seconds user
-       0,052832000 seconds sys
+       0,012951000 seconds user
+       0,021918000 seconds sys
 ```
 
 ## Passo 2: Simulação de Espera / Rede (Idle)
@@ -40,30 +40,30 @@ O script espera.py simula uma aplicação web ou API que faz uma requisição ex
 
 **Comando executado:**
 ```bash
-sudo perf stat python3 espera.py --tempo 3
+sudo perf stat python3 espera.py 
 ```
 
 ```text
-[*] Iniciando simulação de espera (Ex: Aguardando Banco de Dados ou API externa)...
-[*] O programa vai dormir por 3.0 segundos. A CPU ficará livre.
+[*] Simulação de espera de 3s (Ex: Aguardando Banco de Dados)...
+[*] A CPU ficará livre neste período.
 [*] Espera concluída! Tempo real decorrido no relógio: 3.00 segundos.
 
- Performance counter stats for 'python3 espera.py --tempo 3':
+ Performance counter stats for 'python3 espera.py':
 
-                 2      context-switches                 #      28,2 cs/sec  cs_per_second      
-                 0      cpu-migrations                   #       0,0 migrations/sec  migrations_per_second
-             1.469      page-faults                      #  20679,8 faults/sec  page_faults_per_second
-             71,04 msec task-clock                       #       0,0 CPUs  CPUs_utilized        
-         1.203.884      branch-misses                    #       5,0 %  branch_miss_rate         (48,40%)
-        23.460.572      branches                         #   330,3 M/sec  branch_frequency      (49,43%)
-        97.125.225      cpu-cycles                       #       1,4 GHz  cycles_frequency       (66,31%)
-       110.079.782      instructions                     #       1,1 instructions  insn_per_cycle  (51,60%)
-        31.545.503      stalled-cycles-frontend          #      0,32 frontend_cycles_idle        (50,57%)
+                 1      context-switches                 #     45,7 cs/sec  cs_per_second     
+                 0      cpu-migrations                   #      0,0 migrations/sec  migrations_per_second
+             1.115      page-faults                      #  51010,8 faults/sec  page_faults_per_second
+             21,86 msec task-clock                       #      0,0 CPUs  CPUs_utilized       
+           690.427      branch-misses                    #      4,8 %  branch_miss_rate         (46,54%)
+        16.142.305      branches                         #    738,5 M/sec  branch_frequency     (47,24%)
+        74.095.311      cpu-cycles                       #      3,4 GHz  cycles_frequency       (64,10%)
+        73.742.748      instructions                     #      1,0 instructions  insn_per_cycle  (53,46%)
+        20.502.069      stalled-cycles-frontend          #     0,31 frontend_cycles_idle        (52,76%)
 
-       3,076789084 seconds time elapsed
+       3,025103151 seconds time elapsed
 
-       0,052398000 seconds user
-       0,024183000 seconds sys
+       0,017901000 seconds user
+       0,006961000 seconds sys
 ```
 
 ## Passo 3: Simulação de CPU Bound (Processamento Intensivo)
@@ -71,30 +71,29 @@ O script processamento.py possui um laço de repetição que exige 100% de capac
 
 **Comando executado:**
 ```bash
-sudo perf stat python3 processamento.py --carga 50000000
+sudo perf stat -d python3 processamento.py
 ```
 
 ```text
-[*] Iniciando cálculo matemático intensivo com 50,000,000 operações...
+[*] Iniciando cálculo matemático com 100,000,000 operações...
 [*] O processador será levado ao limite neste núcleo.
-[*] Processamento concluído! Tempo decorrido: 10.23 segundos.
+[*] Processamento concluído! Tempo decorrido: 13.01 segundos.
 
- Performance counter stats for 'python3 processamento.py --carga 50000000':
+ Performance counter stats for 'python3 processamento.py':
 
-                95      context-switches                 #      9,2 cs/sec  cs_per_second     
-                 1      cpu-migrations                   #      0,1 migrations/sec  migrations_per_second
-             1.476      page-faults                      #    143,4 faults/sec  page_faults_per_second
-         10.295,56 msec task-clock                       #      1,0 CPUs  CPUs_utilized       
-         5.360.620      L1-dcache-load-misses            #      0,0 %  l1d_miss_rate            (42,86%)
-         4.011.444      branch-misses                    #      0,0 %  branch_miss_rate         (42,86%)
-    10.352.040.751      branches                         #   1005,5 M/sec  branch_frequency     (42,85%)
-    16.997.741.316      cpu-cycles                       #      1,7 GHz  cycles_frequency       (42,86%)
-    52.789.840.100      instructions                     #      3,1 instructions  insn_per_cycle  (42,86%)
-     2.828.041.381      stalled-cycles-frontend          #     0,17 frontend_cycles_idle        (42,86%)
+               137      context-switches                 #     10,5 cs/sec  cs_per_second     
+                 7      cpu-migrations                   #      0,5 migrations/sec  migrations_per_second
+             1.118      page-faults                      #     85,9 faults/sec  page_faults_per_second
+         13.012,13 msec task-clock                       #      1,0 CPUs  CPUs_utilized       
+         5.558.795      L1-dcache-load-misses            #      0,0 %  l1d_miss_rate            (42,85%)
+         5.110.916      branch-misses                    #      0,0 %  branch_miss_rate         (42,85%)
+    35.460.874.639      branches                         #   2725,2 M/sec  branch_frequency     (42,86%)
+    52.213.101.604      cpu-cycles                       #      4,0 GHz  cycles_frequency       (42,87%)
+   185.888.937.081      instructions                     #      3,6 instructions  insn_per_cycle  (42,87%)
+     4.079.996.758      stalled-cycles-frontend          #     0,08 frontend_cycles_idle        (42,86%)
 
-      10,299179381 seconds time elapsed
+      13,025719469 seconds time elapsed
 
-      10,278457000 seconds user
-       0,021007000 seconds sys
-
+      13,007384000 seconds user
+       0,006993000 seconds sys
 ```
